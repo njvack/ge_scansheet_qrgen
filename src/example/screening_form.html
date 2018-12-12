@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>MRI Screening Form</title>
+  <script src="qrcode.js"></script>
+  <script src="scansheet.js"></script>
+  <link rel="stylesheet" href="form.css">
+  <script>
+    function set_printed_metadata() {
+      var u = new URL(window.location);
+      var sp = u.searchParams
+      var gei = document.getElementById
+      document.getElementById('scan_date').innerHTML = sp.get('scan_date');
+      document.getElementById('study_name').innerHTML = sp.get('radiologistLastName');
+      document.getElementById('ppt_id').innerHTML = sp.get('radiologistFirstName');
+      document.getElementById('pi_name').innerHTML = sp.get('pi_name');
+      document.getElementById('ppt_name').innerHTML = sp.get('ppt_name');
+      document.getElementById('ppt_sex').innerHTML = sp.get('ppt_gender');
+      document.getElementById('ppt_dob').innerHTML = sp.get('dateOfBirth');
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      console.log("Loaded");
+      set_printed_metadata();
+      var scansheet = window.scansheet(window.location);
+      console.log(scansheet.form_str());
+      var qrcode = new QRCode(document.getElementById("qr_code"), {
+        text: scansheet.form_str(),
+        width: 192,
+        height: 192,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+      });
+      document.getElementById('qr_text').innerHTML = scansheet.form_str();
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <section class="text_info">
+      <h1>MRI Screening / Waisman Brain Imaging Core</h1>
+      <h2>
+        <span id="scan_date"></span> /
+        <span id="study_name"></span> /
+        <span id="ppt_id"></span> /
+        <span id="pi_name"></span>
+      </h2>
+      <div>
+        <span class="name" id="ppt_name"></span> /
+        Gender: <span class="sex" id="ppt_sex"></span> /
+        Date of birth: <span class="birthdate" id="ppt_dob"></span>
+      </div>
+      <div class="administrator_signature">
+        <p>Administered by:______________________________</p>
+      </div>
+    </section>
+    <section class="qr_info">
+      <div id="qr_code"></div>
+      <div id="qr_text"></div>
+    </section>
+  </header>
+  <section class="question_list">
+    <label class="yes">Yes</label>
+    <label class="no">No</label>
+    <ul>
+        <li>Do you have corrected vision?
+          <dfn>Do you know your vision rating or prescription?_______________________________________________________________________________________________________________________________________</dfn></li>
+        
+        <li>Do you wear contact lenses?</li>
+        
+        <li>Do you use transdermal patches (nicotine) or any type of medicated adhesive?</li>
+        
+        <li>Have you ever had a MRI scan?
+          <dfn>Date & Description:___________________________________________________________________________________________________________________________________________________</dfn></li>
+        
+        <li>Have you ever had surgery or a similar invasive procedure?
+          <dfn>Date & Description:_____________________________________________________________________________________________________________________________________________</dfn></li>
+        
+        <li>Have you ever had heart surgery?
+          <dfn>Date & Description:_____________________________________________________________________________________________________________________________________________</dfn></li>
+        
+        <li>Do you have a Pacemaker?</li>
+        
+        <li>Do you have an implanted cardiac defibrillator?</li>
+        
+        <li>Do you have an artificial heart valve or stent?</li>
+        
+        <li>Do you have cardiac pace wires?</li>
+        
+        <li>Do you have an IVC (inferior vena cava) filter?</li>
+        
+        <li>Have you ever had head or brain surgery?
+          <dfn>Date & Description:_____________________________________________________________________________________________________________________________________</dfn></li>
+        
+        <li>Do you have brain aneurysm clips or coils?</li>
+        
+        <li>Do you have a VP (ventriculoperitoneal) shunt?</li>
+        
+        <li>Have you ever had eye surgery? (Lasik is O.K.)
+          <dfn>Date & Description:_____________________________________________________________________________________________________________________________________</dfn></li>
+        
+        <li>Do you have lens implants?</li>
+        
+        <li>Do you wear dentures?</li>
+        
+        <li>Have you ever had ear surgery?</li>
+        
+        <li>Do you have a cochlear implant or stapes prosthesis?</li>
+        
+        <li>Do you wear a hearing aid?</li>
+        
+        <li>Have you ever had back surgery?
+          <dfn>Date & Description:______________________________________________________________________________________________________________________________________________</dfn></li>
+        
+        <li>Do you have any implanted devices of any type?
+          <dfn>Description:______________________________________________________________________________________________________________________________________________</dfn></li>
+        
+        <li>Do you have breast or penile implants?</li>
+        
+        <li>Do you have tissue expanders?</li>
+
+        <li>Do you have implanted electrodes?</li>
+        
+        <li>Do you have a pump or shunt implanted? (e.g., drug infusion device)?</li>
+        
+        <li>Do you have neurostimulator or biostimulators implanted?</li>
+        
+        <li>Did you have a colonoscopy or endoscopy in the last 8 weeks? (If so, was anything removed?)
+          <dfn>Date & Description:___________________________________________________________________________________________________________________________________________</dfn></li>
+        
+        <li>Do you have any dental or orthodontic implants? (Fillings are O.K.)
+          <dfn>Date & Description:___________________________________________________________________________________________________________________________________________</dfn></li>
+      
+        <li>Do you have any type of prosthesis?
+          <dfn>Date & Description:___________________________________________________________________________________________________________________________________________</dfn></li>
+        
+        <li>Do you have any type of orthopedic implant (e.g., pins, rods, screws, nails)?
+          <dfn>Date & Description:___________________________________________________________________________________________________________________________________________</dfn></li>
+        
+        <li>Do you have any permanent cosmetics (e.g., eyeliner)?</li>
+        
+        <li>Do you have any tattoos on your upper body?
+          <dfn>Where/Extent? _______________________________________________________________________________________________________________________________________</dfn></li>
+        
+        <li>Do you have any body piercing(s) that can’t be removed?
+          <dfn>Where? ______________________________________________________________________________________________________________________________________________</dfn></li>
+        
+        <li>Do you have a history of any metal in your body?</li>
+        
+        <li>Have you every worked as an occupational metal grinder or worked with metal as a hobby?</li>
+        
+        <li>Do you have metal in your body from an accident?
+          <dfn>Description:_________________________________________________________________________________________________________________________________________</dfn></li>
+        
+        <li>Do you have metal in your body from a surgery?
+          <dfn>Description:_________________________________________________________________________________________________________________________________________</dfn></li>
+        
+        <li>Have you ever sought medical attention for metal in your eyes or had metal fragments removed from your eyes?
+          <dfn>Description:_____________________________________________________________________________________________</dfn></li>
+        
+        <li>Have you ever been struck by a gun shot, B.B. or shrapnel? (If BB, did it break the skin?)</li>
+        
+        <li>Have you ever experienced claustrophobia?</li>
+
+        <li>Do you have sleep apnea or trouble breathing when you sleep?</li>
+        
+        <li>Do you have any back problems that would prevent you from lying still for up to 2 hours?</li>
+
+        <li>(Day of scan, adults) Did you or will you take medicine for claustrophobia?</li>
+        
+        <li>If yes, do you or will you have a driver?</li>
+
+        <li>(Day of scan, adults) Have you ingested alcohol or other drugs in the last four hours?</li>
+
+        <li>(Female only) Are you or is there a chance you are pregnant?</li>
+        
+        <li>(Female only) Do you have an intrauterine device (IUD)?</li>
+
+        <li>If yes, was the procedure done in the United States?</li>
+    </ul>
+  </section>
+  <footer>
+    <p class="warning">Any questionable conditions must be approved by the MR technician.</p>
+    <p class="rev">Revision 2018-11-30</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GE Patient Form</title>
+  <script src="qrcode.js"></script>
+  <script src="scansheet.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      console.log("Loaded");
+      var scansheet = window.scansheet(window.location);
+      console.log(scansheet.form_str());
+      var qrcode = new QRCode(document.getElementById("qrcode"), {
+        text: scansheet.form_str(),
+        width: 256,
+        height: 256,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+      });
+    });
+  </script>
+</head>
+<body>
+  <div id="qrcode"></div>
+</body>
+</html>

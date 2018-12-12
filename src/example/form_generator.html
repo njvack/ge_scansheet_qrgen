@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>MRI Screening Form</title>
+  <script src="qrcode.js"></script>
+  <script src="scansheet.js"></script>
+  <link rel="stylesheet" href="form.css">
+
+  <script>
+    function setExamDescription(evt) {
+      var f = document.getElementById('entry_form');
+      var rmr_number = "rmr" + f['operatorLastName'].value + f['radiologistLastName'].value + f['radiologistFirstName'].value;
+      f['examDescription'].value = rmr_number;
+    }
+
+    function local_date_str(d) {
+      var local = new Date(d);
+      local.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+      return local.toJSON().slice(0, 10);
+    }
+    
+
+    document.addEventListener("DOMContentLoaded", function() {
+      var elt = document.getElementById('entry_form');
+      elt.addEventListener('submit', setExamDescription);
+      var date_elt = document.getElementById('scan_date');
+      date_elt.value = local_date_str(new Date());
+    });
+
+  </script>
+</head>
+<body>
+  <h1>Enter some info</h1>
+  <form method="GET" action="screening_form.html" id="entry_form">
+    <div>
+        <label for="scan_date">Scan date</label>
+        <input type="date" name="scan_date" id="scan_date">
+    </div>
+    <div>
+      <label for="pi_name">PI</label>
+      <input type="text" name="pi_name" id="pi_name">
+    </div>
+    <div>
+      <label for="radiologistLastName">Study</label>
+      <input type="text" name="radiologistLastName" id="radiologistLastName">
+    </div>
+    <div>
+      <label for="radiologistFirstName">Participant ID</label>
+      <input type="text" name="radiologistFirstName" id="radiologistFirstName">
+    </div>
+    <div>
+      <label for="ppt_name">Participant Name</label>
+      <input type="text" name="ppt_name" id="ppt_name">
+    </div>
+  
+    <div>
+      <label for="patientLastName">Participant Initials</label>
+      <input type="text" name="patientLastName" id="patientLastName">
+    </div>
+    <div>
+      <label for="ppt_gender">Participant Gender</label>
+      <input type="text" name="ppt_gender" id="ppt_gender">
+    </div>
+    <div>
+      <label for="weight_lbs">Weight (pounds)</label>
+      <input type="text" name="weight_lbs" id="weight_lbs">
+    </div>
+    <div>
+      <label for="dateOfBirth">Date of Birth</label>
+      <input type="text" name="dateOfBirth" id="dateOfBirth">
+    </div>
+    <div>
+      <label for="operatorLastName">Scan tech initials</label>
+      <input type="text" name="operatorLastName" id="operatorLastName">
+    </div>
+    <input type="hidden" name="examDescription" id="examDescription">
+    <input type="submit">
+  </form>
+</body>
+</html>
